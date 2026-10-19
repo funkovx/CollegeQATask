@@ -3,8 +3,8 @@ package ru.siriusuniversity.tests.config;
 import com.codeborne.selenide.Configuration;
 
 /**
- * Конфигурация Selenide / WebDriver.
- * Вынесена в отдельный класс, чтобы настройки были в одном месте и легко расширялись.
+ * Selenide / WebDriver configuration.
+ * Kept in its own class so all settings live in one place and are easy to extend.
  */
 public final class WebDriverConfig {
 

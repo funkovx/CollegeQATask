@@ -1,66 +1,62 @@
 # CollegeQATask
 
-UI-автотест на Java + JUnit 5 + Selenide: проверка страницы входа в личный кабинет Университета Сириус.
+UI test for the Sirius University student portal login page, written in Java with JUnit 5 and Selenide using the Page Object pattern.
 
-## Стек
+## Stack
 
-- Java 21
-- Maven
+- Java 21, Maven
 - JUnit 5
-- Selenide 7.x (управляет драйвером Chrome автоматически через Selenium Manager)
-- dotenv-java (чтение учётных данных из `.env`)
+- Selenide 7.x (Chrome driver is managed automatically by Selenium Manager)
+- dotenv-java for reading credentials from `.env`
 
-## Структура проекта
+## Project structure
 
 ```
 CollegeQATask/
-├── .env                  ← создай сам, в git не попадает
-├── .gitignore
+├── .env                  ← create it yourself, it is git-ignored
 ├── pom.xml
 └── src/test/java/ru/siriusuniversity/tests/
     ├── base/
-    │   └── BaseTest.java              // инициализация Chrome, закрытие после теста
+    │   └── BaseTest.java              // starts Chrome, closes it after each test
     ├── config/
-    │   ├── Credentials.java           // читает LKS_LOGIN и LKS_PASSWORD из .env
-    │   └── WebDriverConfig.java       // настройки Selenide (browser, size, timeouts)
+    │   ├── Credentials.java           // reads LKS_LOGIN and LKS_PASSWORD from .env
+    │   └── WebDriverConfig.java       // Selenide settings (browser, window size, timeouts)
     ├── pages/
-    │   ├── DashboardPage.java         // проверка успешного входа (URL ушёл с /login)
-    │   └── LoginPage.java             // Page Object страницы логина
-    └── LoginPageTest.java             // сам тест
+    │   ├── DashboardPage.java         // checks a successful login (URL left /login)
+    │   └── LoginPage.java             // Page Object for the login page
+    └── LoginPageTest.java             // the test itself
 ```
 
-## Настройка учётных данных
+## Credentials
 
-Создай файл `.env` в корне проекта:
+Create `.env` in the project root:
 
 ```
 LKS_LOGIN=your_email@example.com
 LKS_PASSWORD=your_password
 ```
 
-Файл `.env` не попадает в git — он добавлен в `.gitignore`.
+`.env` is listed in `.gitignore` and never committed.
 
-## Запуск
+## Running
 
 ```bash
 mvn test
 ```
 
-Headless-режим (без открытия окна браузера):
+Headless mode:
 
 ```bash
 mvn test -Dselenide.headless=true
 ```
 
-## Что делает тест
+## What the test does
 
-`LoginPageTest` открывает `https://lks.siriusuniversity.ru/login` и:
+`LoginPageTest` opens `https://lks.siriusuniversity.ru/login` and picks a scenario:
 
-| Условие | Сценарий |
-|---|---|
-| `.env` **есть** с данными | кнопка «Войти» видна → вводит логин/пароль → кликает → проверяет, что URL ушёл с `/login` |
-| `.env` **нет** или пустой | кнопка «Войти» видна → кликает без данных → проверяет, что страница осталась на `/login` |
+| Condition | Scenario |
+| --- | --- |
+| `.env` exists with credentials | Login button is visible → fills in login and password → submits → checks that the URL has left `/login` |
+| `.env` is missing or empty | Login button is visible → submits an empty form → checks that the page stays on `/login` |
 
-## Отчёты и скриншоты
-
-Скриншоты неудачных шагов сохраняются в `target/selenide-reports/`.
+Screenshots of failed steps are saved to `target/selenide-reports/`.

@@ -6,13 +6,13 @@ import ru.siriusuniversity.tests.base.BaseTest;
 import ru.siriusuniversity.tests.config.Credentials;
 import ru.siriusuniversity.tests.pages.LoginPage;
 
-@DisplayName("Страница входа Университета Сириус")
+@DisplayName("Sirius University login page")
 public class LoginPageTest extends BaseTest {
 
     private final LoginPage loginPage = new LoginPage();
 
     @Test
-    @DisplayName("Сценарий входа зависит от наличия .env с учётными данными")
+    @DisplayName("Login scenario depends on whether .env with credentials exists")
     void loginScenario() {
         loginPage.openPage().verifyLoginButtonIsDisplayed();
 

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import ru.siriusuniversity.tests.config.WebDriverConfig;
 
 /**
- * Базовый класс для всех UI-тестов.
- * Отвечает за инициализацию Selenide и корректное закрытие браузера.
+ * Base class for all UI tests.
+ * Sets up Selenide and closes the browser cleanly.
  */
 public abstract class BaseTest {
 
